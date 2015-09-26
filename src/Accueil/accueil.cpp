@@ -80,6 +80,10 @@ Accueil::Accueil(const QString &pseudo,const QString &pass,QWidget *parent) :
                                                                 // d'un utilisateur,affiche ce qu'il tape
 
     connect(ui->listWidget,SIGNAL(customContextMenuRequested(QPoint)),SLOT(customMenuRequested(QPoint)));
+
+
+    connect(ui->actionEnregistrer_la_discussion,SIGNAL(triggered(bool)),
+            this,SLOT(enregistrer()));
 }
 
 /**
@@ -214,4 +218,20 @@ void Accueil::customMenuRequested(const QPoint &pos){
     menu->addAction(new QAction("Discussion Privée",this));
     menu->addAction(new QAction("Discussion public",this));
     menu->popup(ui->listWidget->viewport()->mapToGlobal(pos));
+}
+
+void Accueil::enregistrer(){
+    QString nomfichier=QFileDialog::getSaveFileName(this,"Sauvegarder la discussion",QString(),"html files (*.html)");
+    if(nomfichier != ""){
+        QFile file(nomfichier);
+        if(file.open(QIODevice::ReadWrite)){
+            QTextStream stream(&file);
+            stream << ui->chat->toPlainText();
+            file.flush();
+            file.close();
+        }
+        else{
+            QMessageBox::critical(this,"Erreur","Impossible d'enregistrer le texte");
+        }
+    }
 }

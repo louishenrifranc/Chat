@@ -36,6 +36,7 @@ FORMS    += \
     src/Accueil/accueil.ui
 
 RESOURCES += \
+    ressource.qrc \
     ressource.qrc
 
 DISTFILES +=
