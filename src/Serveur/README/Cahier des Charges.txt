@@ -1,0 +1,4 @@
+Utile:
+Creer un fichier de log des discussions qui passe par le serveur
+Ameliorer le code secret des messages instatannees
+Passer au SSL
