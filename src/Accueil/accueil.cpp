@@ -84,6 +84,7 @@ Accueil::Accueil(const QString &pseudo,const QString &pass,QWidget *parent) :
 
     connect(ui->actionEnregistrer_la_discussion,SIGNAL(triggered(bool)),
             this,SLOT(enregistrer()));
+    connect(ui->actionChanger_couleur,SIGNAL(triggered(bool)),SLOT(changerCouleurPseudo()));
 }
 
 /**
@@ -220,6 +221,7 @@ void Accueil::customMenuRequested(const QPoint &pos){
     menu->popup(ui->listWidget->viewport()->mapToGlobal(pos));
 }
 
+
 void Accueil::enregistrer(){
     QString nomfichier=QFileDialog::getSaveFileName(this,"Sauvegarder la discussion",QString(),"html files (*.html)");
     if(nomfichier != ""){
@@ -234,4 +236,11 @@ void Accueil::enregistrer(){
             QMessageBox::critical(this,"Erreur","Impossible d'enregistrer le texte");
         }
     }
+}
+
+
+void Accueil::changerCouleurPseudo(){
+        QColor couleur = QColorDialog::getColor(Qt::white, this);
+        couleur_User=couleur.name();
+        qDebug() <<"La couleur a changé"+couleur_User;
 }

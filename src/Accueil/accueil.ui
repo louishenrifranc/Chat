@@ -149,7 +149,7 @@ font: 75 italic 11pt &quot;Mangal&quot;;</string>
      <string>Parametres</string>
     </property>
     <addaction name="actionEnregistrer_la_discussion"/>
-    <addaction name="actionChanger_police"/>
+    <addaction name="actionChanger_couleur"/>
    </widget>
    <widget class="QMenu" name="menuAide">
     <property name="title">
@@ -166,7 +166,7 @@ font: 75 italic 11pt &quot;Mangal&quot;;</string>
     <string>Enregistrer la discussion</string>
    </property>
   </action>
-  <action name="actionChanger_police">
+  <action name="actionChanger_couleur">
    <property name="text">
     <string>Changer couleur</string>
    </property>

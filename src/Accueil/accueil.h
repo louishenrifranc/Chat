@@ -10,6 +10,10 @@
 #include <QAction>
 #include<QFileDialog>
 #include<QMessageBox>
+#include <QColor>
+#include<QColorDialog>
+#include<QPalette>
+
 namespace Ui {
 class Accueil;
 }
@@ -34,6 +38,7 @@ private slots:
     void envoyer_Message();                         // Envoyer message
     void envoyer_Instantanne(const QString &);      // Envoyer message des que le texte est modifier
     void enregistrer();
+    void changerCouleurPseudo();
     void customMenuRequested(const QPoint &);
 private:
     Ui::Accueil *ui;
