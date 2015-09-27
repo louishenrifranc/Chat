@@ -6,6 +6,8 @@ Accueil::Accueil(const QString &pseudo,const QString &pass,QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Accueil)
 {                                                       // Style pour les ZAI
+
+
     pile_Text_CSS="border-style: solid;\
             border-width:1px; \
             border-color:black;\
@@ -24,7 +26,9 @@ Accueil::Accueil(const QString &pseudo,const QString &pass,QWidget *parent) :
     setLayout(ui->horizontalLayout_2);
     stacklayout=new QStackedLayout;
 
-    ui->verticalLayout->addLayout(stacklayout);         // Ajoute au layout vertical
+    ui->verticalLayout->addLayout(stacklayout);                          // Ajoute au layout vertical
+
+    ui->listWidget->setContextMenuPolicy(Qt::CustomContextMenu);
 
     /**
     QFile file(QCoreApplication::applicationDirPath()+"\\Cle\\client-key.txt");
@@ -82,9 +86,10 @@ Accueil::Accueil(const QString &pseudo,const QString &pass,QWidget *parent) :
     connect(ui->listWidget,SIGNAL(customContextMenuRequested(QPoint)),SLOT(customMenuRequested(QPoint)));
 
 
-    connect(ui->actionEnregistrer_la_discussion,SIGNAL(triggered(bool)),
+    connect(ui->actionEnregistrer_la_discussion,SIGNAL(triggered(bool)),    // Possibilité d'enregistrer la discussion
             this,SLOT(enregistrer()));
-    connect(ui->actionChanger_couleur,SIGNAL(triggered(bool)),SLOT(changerCouleurPseudo()));
+    connect(ui->actionChanger_couleur,SIGNAL(triggered(bool)),              // Possibilite de changer son pseudo
+            SLOT(changerCouleurPseudo()));
 }
 
 /**
@@ -101,7 +106,6 @@ void Accueil::readyRead(){
         QRegExp message_InstantaneRegex(            // Motif pour les messages intermediaires
                     "^/x0924:([^:]+):(.*)$");
 
-        QString user;
 
         if(usersRegex.indexIn(line) != -1){         // Si c'est une requete nouveau User
             ui->listWidget->clear();                // Vide la liste d'utilisateur
@@ -113,13 +117,14 @@ void Accueil::readyRead(){
             utilisateursToInt.clear();              // Supprime les equivalences users-index
             qDebug() <<"Nouvelle requete utilisateur";
             int i(0);
+            users.clear();
+
             foreach(QString nouvelle_user,liste_user){
                 new QListWidgetItem(                                // Cree un item dans la liste au nom de
                             QPixmap(":/Images/user.png.png"),       // l'user
                             nouvelle_user, ui->listWidget);
-                users << nouvelle_user;                             // Ajoute l'user a la liste
                 utilisateursToInt.insert(nouvelle_user,i++);        // Equivalence user - index
-
+                users << nouvelle_user;
                 QTextEdit *buffer_TextEdit=new QTextEdit;           // Cree un pointeur vers un QtextEdit
                 buffer_TextEdit->setStyleSheet(pile_Text_CSS);      // Modifie son CSS
                 buffer_TextEdit->setReadOnly(true);
@@ -213,14 +218,6 @@ void Accueil::on_send_clicked(){
 }
 
 
-void Accueil::customMenuRequested(const QPoint &pos){
-    QModelIndex index=ui->listWidget->indexAt(pos);
-    QMenu *menu=new QMenu(this);
-    menu->addAction(new QAction("Discussion Privée",this));
-    menu->addAction(new QAction("Discussion public",this));
-    menu->popup(ui->listWidget->viewport()->mapToGlobal(pos));
-}
-
 
 void Accueil::enregistrer(){
     QString nomfichier=QFileDialog::getSaveFileName(this,"Sauvegarder la discussion",QString(),"html files (*.html)");
@@ -243,4 +240,29 @@ void Accueil::changerCouleurPseudo(){
         QColor couleur = QColorDialog::getColor(Qt::white, this);
         couleur_User=couleur.name();
         qDebug() <<"La couleur a changé"+couleur_User;
+}
+
+
+void Accueil::customMenuRequested(const QPoint &pos){
+    QPoint globalPos= ui->listWidget->mapToGlobal(pos);
+    QMenu *menu=new QMenu(this);
+    QAction *discussionPrivee=new QAction("Discussion Privee",this);
+    QAction *discussionPublic=new QAction("Discussion Public",this);
+    menu->addAction(discussionPublic);
+    menu->addAction(discussionPrivee);
+    QAction *selected_Item=menu->exec(globalPos);
+    if(selected_Item == discussionPrivee ){
+        ListClient *choixClient=new ListClient(users);
+        connect(choixClient,SIGNAL(nouvelleListeClient(QStringList)),this,SLOT(nouvelleListePrivee(const QStringList &)));
+
+
+
+    }
+    else if(selected_Item == discussionPublic){
+        socket->write(QString("/listepublic\n").toUtf8());
+    }
+}
+
+void Accueil::nouvelleListePrivee(const QStringList & liste){
+    socket->write(QString("/listeprivee:"+liste.join(",")+"\n").toUtf8());
 }

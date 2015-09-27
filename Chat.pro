@@ -21,7 +21,8 @@ SOURCES +=\
     src/Client/client.cpp \
     src/Serveur/clientserveur.cpp \
     src/Serveur/fenserveur.cpp \
-    src/Serveur/serveur.cpp
+    src/Serveur/serveur.cpp \
+    src/Accueil/listclient.cpp
 
 HEADERS  += \
     src/Accueil/accueil.h \
@@ -29,7 +30,8 @@ HEADERS  += \
     src/Client/client.h \
     src/Serveur/clientserveur.h \
     src/Serveur/fenserveur.h \
-    src/Serveur/serveur.h
+    src/Serveur/serveur.h \
+    src/Accueil/listclient.h
 
 FORMS    += \
     src/Connexion/connexion.ui \

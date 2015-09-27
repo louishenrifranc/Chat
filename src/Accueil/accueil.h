@@ -13,7 +13,7 @@
 #include <QColor>
 #include<QColorDialog>
 #include<QPalette>
-
+#include "listclient.h"
 namespace Ui {
 class Accueil;
 }
@@ -40,6 +40,7 @@ private slots:
     void enregistrer();
     void changerCouleurPseudo();
     void customMenuRequested(const QPoint &);
+    void nouvelleListePrivee(const QStringList & liste);
 private:
     Ui::Accueil *ui;
     /**QSslSocket**/ QTcpSocket *socket;            // Le socket

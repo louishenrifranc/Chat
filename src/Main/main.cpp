@@ -1,4 +1,4 @@
-#include "connexion.h"
+#include "src/Connexion/connexion.h"
 #include"src/Serveur/fenserveur.h"
 #include <QApplication>
 

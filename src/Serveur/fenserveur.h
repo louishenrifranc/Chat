@@ -10,7 +10,7 @@
 #include<QDebug>
 #include"serveur.h"
 #include"clientserveur.h"
-#include"client.h"
+#include"src/Client/client.h"
 
 class FenServeur: public QWidget
 {
@@ -31,11 +31,14 @@ public slots:
 private:
 
     QSet<QTcpSocket *> clients;
+    QSet<QString > listeUsers;
+    QMap<QString,QSet<QString > > listeConexion;
     QMap</**QSslSocket ***/QTcpSocket *,QString> users;
     QLabel *etatServeur;
     QPushButton *quitter;
     /**QSslSocket **/QTcpServer *serveur;
     quint16 port=5983;
+    QString code_newusers,code_messageinstantannee,code_envoi_liste_clients,code_discussion_public,code_discussion_prive;
 
 };
 

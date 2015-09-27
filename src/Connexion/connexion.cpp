@@ -101,7 +101,6 @@ bool Connexion::verifierPassword(const QString & password){
 
 
 bool Connexion::verifierEmail(const QString &email){
-    int count=0;
     char c;
     // N'importe quel lettre-chiffre + 1@ + N'importe quel lettrechifre + 1. + ...
     int u,v,sum_1,sum_2;

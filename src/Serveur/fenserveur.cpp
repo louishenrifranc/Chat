@@ -2,6 +2,12 @@
 
 FenServeur::FenServeur() : QWidget()
 {
+
+    code_newusers="/me";
+    code_messageinstantannee="/x0924";
+    code_envoi_liste_clients="/users";
+    code_discussion_public="/listepublic";
+    code_discussion_prive="/listeprivee";
     QVBoxLayout *layout=new QVBoxLayout;
     etatServeur=new QLabel;
 
@@ -71,18 +77,20 @@ void FenServeur::donneesRecues(){
 
        line=QString::fromUtf8(socket->readLine().trimmed());
        qDebug() <<line;
-       QRegExp meRegex("^/me:(.*)$");
-       QRegExp meRegex2("/x0924:(.*)$");
-                                                        // Si le message est un message provient
-                                                        // d'un nouvel utilisateur
+       QRegExp meRegex("^"+code_newusers+":(.*)$");
+       QRegExp meRegex2("^"+code_messageinstantannee+":(.*)$"); // Si le message est un message provient
+                                                                // d'un nouvel utilisateur
+       QRegExp meRegex3("^"+code_discussion_prive+":(.*)$");
+       QRegExp meRegex4("^"+code_discussion_public+"$");
+
        if(meRegex.indexIn(line) != -1){
                    user=meRegex.cap(1);
                    qDebug()<< "Message de nouveau utilisateur: "+user;
                    users[socket]= user;
-                   foreach (QTcpSocket *client,clients) {
-                       client->write(QString("Server: "
-                                 +user+" has joined"+"\n")
-                                     .toUtf8());
+                   listeUsers.insert(user);
+                   foreach(QString clients,listeUsers){                         /*************************** ****/
+                       listeConexion[user].insert(clients);
+                       if(clients != user) listeConexion[clients].insert(user);
                    }
                    sendUserList();
     }
@@ -90,21 +98,36 @@ void FenServeur::donneesRecues(){
 
        else if (users.contains(socket)){
             QString message;
-                                                       // Si c'est un message instantannée
-           if(meRegex2.indexIn(line) != -1){
+            user=users[socket];
+
+            if(meRegex3.indexIn(line) != -1){
+               listeConexion[user].clear();
+               QStringList newliste= meRegex3.cap(1).split(",");    /************************* **************/
+               foreach(QString privateUsers,newliste){
+                   listeConexion[user].insert(privateUsers);
+                   listeConexion[user].insert(user);
+               }
+            }
+            else if(meRegex4.indexIn(line) != -1){
+                listeConexion[user].clear();
+                foreach(QString clients,listeUsers){                         /*************************** ****/
+                    listeConexion[user].insert(clients);
+                }
+            }
+
+            // Si c'est un message instantannée
+           else if(meRegex2.indexIn(line) != -1){
                message=meRegex2.cap(1);
-               user=users[socket];
                qDebug() << "Message partiel de "+user+" : "+message;
-               foreach (QTcpSocket *client,clients) {
-                   client->write(QString("/x0924:"+user+":"+message).toUtf8());
+               foreach(QString receiver,listeConexion[user]){
+                   users.key(receiver)->write(QString(code_messageinstantannee+":"+user+":"+message).toUtf8());
                }
            }
            else {                                        // Si c'est un message complet
                message=line;
-               user=users[socket];
-               foreach (QTcpSocket *client,clients) {
-                   qDebug() << "Message complet de "+user+" : "+message;
-                   client->write(QString(user+":"+message).toUtf8());
+               qDebug() <<"Message complet de "+user;
+               foreach(QString receiver,listeConexion[user]){
+                   users.key(receiver)->write(QString(user+":"+message).toUtf8());
                }
            }
 
@@ -125,7 +148,7 @@ void FenServeur::sendUserList(){
         userList << user;
 
     foreach(QTcpSocket *client,clients)
-        client->write(QString("/users:"+userList.join(",")+"\n").toUtf8());
+        client->write(QString(code_envoi_liste_clients+":"+userList.join(",")+"\n").toUtf8());
 }
 
 void FenServeur::deconnexionClient()
@@ -136,7 +159,9 @@ void FenServeur::deconnexionClient()
     clients.remove(client);             // Supprime le client de la liste des QTCpSocket
 
     QString user = users[client];       // et de la correspondance qtcpsocket - qstring
-    users.remove(client);
+    if(users.count(client)) users.remove(client);
+    if(listeUsers.contains(user)) listeUsers.remove(user);
+    if(listeConexion.contains(user)) listeConexion.remove(user);
 
     sendUserList();                     // renvoit la nouvelle liste
 
