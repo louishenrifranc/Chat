@@ -244,7 +244,7 @@ bool Connexion::createConnexionSQL(){
         db.setHostName("localhost");
         db.setDatabaseName("chat");
         db.setUserName("root");
-        db.setPassword("aX1pUtVor19");
+        db.setPassword("");
 
         if (db.open()) {
             qDebug() << "La base de donnees a reussi a s'ouvrir";
