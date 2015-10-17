@@ -113,7 +113,7 @@ void FenServeur::donneesRecues(){
             QString message;
             user=users[socket];
 
-            if(meRegex3.indexIn(line) != -1){                               // Cas d'une requete de discussion Privée
+           if(meRegex3.indexIn(line) != -1){                               // Cas d'une requete de discussion Privée
                listeConexion[user].clear();
                QStringList newliste= meRegex3.cap(1).split(",");
                foreach(QString privateUsers,newliste){
@@ -121,14 +121,14 @@ void FenServeur::donneesRecues(){
                    listeConexion[user].insert(user);
                }
             }
-            else if(meRegex4.indexIn(line) != -1){                          // Cas d'une requete de discussion Public
+
+           else if(meRegex4.indexIn(line) != -1){                          // Cas d'une requete de discussion Public
                 listeConexion[user].clear();
                 foreach(QString clients,listeUsers){
                     listeConexion[user].insert(clients);
                 }
             }
-
-            // Si c'est un message instantannée
+                                                                            // Cas d'un message instantannée
            else if(meRegex2.indexIn(line) != -1){
                message=meRegex2.cap(1);
                qDebug() << "Message partiel de "+user+" : "+message;
@@ -136,6 +136,7 @@ void FenServeur::donneesRecues(){
                    users.key(receiver)->write(QString(code_messageinstantannee+":"+user+":"+message).toUtf8());
                }
            }
+
            else {                                        // Si c'est un message complet
                message=line;
                qDebug() <<"Message complet de "+user;
@@ -144,7 +145,9 @@ void FenServeur::donneesRecues(){
                }
            }
 
-       }
+          }
+       //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
        else{
            qDebug() <<"Got bad message from Client";
 
@@ -154,6 +157,11 @@ void FenServeur::donneesRecues(){
 }
 
 
+
+/**
+ * @brief FenServeur::sendUserList
+ *  Envoit de la liste
+*/
 void FenServeur::sendUserList(){
 
     QStringList userList;

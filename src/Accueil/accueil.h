@@ -29,7 +29,7 @@ public:
 
 private slots:
     void connecte();                                // Appeller lors que le signal de QTCPServer
-                                                // connected est appelé
+                                                    // connected est appelé
 
     void on_send_clicked();                         // Si on appuie sur le bouton Send
 
@@ -37,10 +37,11 @@ private slots:
     void deconnecter();                             // Deconnecter client
     void envoyer_Message();                         // Envoyer message
     void envoyer_Instantanne(const QString &);      // Envoyer message des que le texte est modifier
-    void enregistrer();
-    void changerCouleurPseudo();
-    void customMenuRequested(const QPoint &);
-    void nouvelleListePrivee(const QStringList & liste);
+    void enregistrer();                             // Enregistrer sa discussion
+    void changerCouleurPseudo();                    // Changer de couleur son pseudo
+    void customMenuRequested(const QPoint &);       // Ouvre un menu contextuel
+    void nouvelleListePrivee(const QStringList      // Slot de reception du signal de la classe ListClient
+                             & liste);
 private:
     Ui::Accueil *ui;
     /**QSslSocket**/ QTcpSocket *socket;            // Le socket

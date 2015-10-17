@@ -30,10 +30,11 @@ void ListClient::clickSelection(){
         QVariant elementSelectionne = modele->data(listeSelections[i],Qt::DisplayRole);
         elementsSelectionnes << elementSelectionne.toString();
     }
-    if( ! elementsSelectionnes.isEmpty()) emit nouvelleListeClient(elementsSelectionnes);
+    if( ! elementsSelectionnes.isEmpty()) emit nouvelleListeClient(elementsSelectionnes);   // Si la liste n'est pas vide, emet un
+                                                                                            // signal et envoit la liste des personnes
+                                                                                            // a qui ont veut discuter de maniere privée
+
     this->close();
 }
 
-QStringList ListClient::get_elements_Selectionnes(){
-    return elementsSelectionnes;
-}
+

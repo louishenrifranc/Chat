@@ -293,5 +293,5 @@ void Accueil::customMenuRequested(const QPoint &pos){
  */
 
 void Accueil::nouvelleListePrivee(const QStringList & liste){
-    socket->write(QString("/listeprivee:"+liste.join(",")+"\n").toUtf8());
+    socket->write(QString("/listeprivee:"+liste.join(",")+"\n").toUtf8());      // Envoit un message avec la liste des users privés avec qui on veut discuter
 }

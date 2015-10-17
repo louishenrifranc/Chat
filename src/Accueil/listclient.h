@@ -9,9 +9,8 @@ class ListClient : public QWidget
     Q_OBJECT
 public:
     ListClient(const QStringList &);
-    QStringList get_elements_Selectionnes();
 signals:
-    void nouvelleListeClient(const QStringList &);
+    void nouvelleListeClient(const QStringList &);      // Signal emis a la fin du choix des clients, recus dans Accueil
 
 private slots:
     void clickSelection();

@@ -30,15 +30,20 @@ public slots:
     void sendUserList();
 private:
 
-    QSet<QTcpSocket *> clients;
-    QSet<QString > listeUsers;
-    QMap<QString,QSet<QString > > listeConexion;
-    QMap</**QSslSocket ***/QTcpSocket *,QString> users;
-    QLabel *etatServeur;
+    QSet<QTcpSocket *> clients;                                 // Liste des socket, JAMAIS VIDE (sauf deconnexion)
+    QSet<QString > listeUsers;                                  // Liste des pseudo, JAMAIS VIDE (sauf deconnexion)
+    QMap<QString,QSet<QString > > listeConexion;                // Pour chaque utilisateur, une liste des utilisateurs avec
+                                                                // qui il commmunique
+
+    QMap</**QSslSocket ***/QTcpSocket *,QString> users;         // Fait l'equivalent entre Socket et pseudo
+    QLabel *etatServeur;                                        //
     QPushButton *quitter;
     /**QSslSocket **/QTcpServer *serveur;
     quint16 port=5983;
-    QString code_newusers,code_messageinstantannee,code_envoi_liste_clients,code_discussion_public,code_discussion_prive;
+    QString code_newusers,code_messageinstantannee,              // Different code de comprehension des messages
+                            code_envoi_liste_clients,
+                            code_discussion_public,
+                            code_discussion_prive;
 
 };
 
