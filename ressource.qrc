@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/Images">
+        <file>192867_1886494402971_2649503_o.jpg</file>
+        <file>303963__glass-rain-drops-blurred_p.jpg</file>
+        <file>se_connecter.jpg</file>
+        <file>chat_image.png</file>
+        <file>blue_twitter.jpg</file>
+        <file>../../Downloads/bouton-erreur-icone-3840-128.png</file>
+        <file>noir1.jpg</file>
+        <file>user.png.png</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>../../Downloads/user.png.png</file>
+    </qresource>
+</RCC>

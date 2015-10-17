@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Connexion</class>
+ <widget class="QWidget" name="Connexion">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>285</width>
+    <height>470</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>285</width>
+    <height>470</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>285</width>
+    <height>470</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Connexion</string>
+  </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-image: url(:/Images/blue_twitter.jpg);
+background-color: rgb(67, 189, 255);</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_5">
+   <item>
+    <layout class="QGridLayout" name="gridLayout">
+     <property name="sizeConstraint">
+      <enum>QLayout::SetMaximumSize</enum>
+     </property>
+     <property name="horizontalSpacing">
+      <number>0</number>
+     </property>
+     <item row="0" column="0">
+      <layout class="QVBoxLayout" name="verticalLayout_4">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_10">
+         <item>
+          <widget class="QLineEdit" name="pseudo">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>200</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(255, 255, 255);
+selection-background-color: rgb(255, 255, 255);
+color: rgb(255, 255, 255);
+font: 75 italic 9pt &quot;Raavi&quot;;
+font: 8pt &quot;Comic Sans MS&quot;;
+ border-style: outset;
+    border-width:3px;
+    border-radius: 8px;
+border-color:white;</string>
+           </property>
+           <property name="text">
+            <string>louish</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_11">
+         <item>
+          <widget class="QLineEdit" name="password">
+           <property name="minimumSize">
+            <size>
+             <width>240</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>240</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(255, 255, 255);
+alternate-background-color: rgb(255, 255, 255);
+color: rgb(255, 255, 255);
+font: 75 italic 9pt &quot;Raavi&quot;;
+font: 8pt &quot;Comic Sans MS&quot;;
+ border-style: outset;
+    border-width:3px;
+    border-radius: 8px;
+border-color:white;
+	</string>
+           </property>
+           <property name="text">
+            <string>groscac</string>
+           </property>
+           <property name="echoMode">
+            <enum>QLineEdit::Password</enum>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+     <item row="1" column="0">
+      <layout class="QHBoxLayout" name="horizontalLayout_13">
+       <item>
+        <widget class="QCheckBox" name="nouveau">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(255, 255, 255);
+font: 10pt &quot;Courier&quot;;</string>
+         </property>
+         <property name="text">
+          <string>New</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="email">
+         <property name="minimumSize">
+          <size>
+           <width>10</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(255, 255, 255);
+font: 75 italic 9pt &quot;Raavi&quot;;
+font: 8pt &quot;Comic Sans MS&quot;;
+ border-style: outset;
+    border-width:3px;
+    border-radius: 8px;
+border-color:white;</string>
+         </property>
+         <property name="text">
+          <string>email</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="maximumSize">
+      <size>
+       <width>1677215</width>
+       <height>125</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 75 italic 9pt &quot;Raavi&quot;;
+color: rgb(255, 255, 255);
+font: 8pt &quot;Comic Sans MS&quot;;
+ border-style: outset;
+    border-width:3px;
+    border-radius: 8px;
+border-color:white;</string>
+     </property>
+     <property name="title">
+      <string>Connexion</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <property name="sizeConstraint">
+       <enum>QLayout::SetMinimumSize</enum>
+      </property>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QPushButton" name="connexion">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>109</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>240</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: white;
+color: rgb(255, 255, 255);
+    border-style: outset;
+    border-width:1px;
+    border-radius: 8px;
+    border-color: beige;
+    font: bold 14px;
+    min-width: 5em;
+    padding: 6px;</string>
+          </property>
+          <property name="text">
+           <string>Connexion</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+  <zorder>groupBox</zorder>
+  <zorder></zorder>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>
